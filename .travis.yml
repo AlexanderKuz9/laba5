@@ -1,0 +1,18 @@
+language: python
+
+addons: 
+  sonarcloud:
+    organization: "laborat5"
+      token: 0fef2a479eac99a469a1f878ed808773c8c0ed20
+
+# command to install dependencies
+install:
+  - pip install -r requirements.txt
+# command to run tests
+script:
+  - python laba4.py < text.txt
+  - sonar-scanner -X
+  - py.test coveralls/tests.py --doctest-modules --pep8 coveralls -v --cov coveralls --cov-report term-missing
+  
+after_success: 
+  - coveralls
